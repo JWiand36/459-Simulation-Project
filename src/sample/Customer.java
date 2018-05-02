@@ -15,6 +15,7 @@ public class Customer extends Circle implements Comparable<Customer>{
         super(20,20,20);
         this.arrivalTime = arrivalTime;
         this.enterQueueTime = enterQueueTime;
+        this.leaveQueueTime = 0;
         this.queue = false;
     }
 

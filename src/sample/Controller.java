@@ -22,6 +22,12 @@ class Controller {
     private int serviceRate = 10;
     private int arrivalRate = 5;
 
+    private int[] customerSystemTime;
+    private int[] customerQueueTime;
+
+    private boolean serverAvailable = true;
+
+
     private ArrayList<Customer> customers = new ArrayList<>();
     private ArrayList<Customer> servedCustomers = new ArrayList<>();
 
@@ -60,7 +66,7 @@ class Controller {
     }
 
     private void enterQueue(Customer customer){
-        int x = 500;
+        int x;
 
         x = 500 - queue.size() * 40;
 
@@ -99,9 +105,17 @@ class Controller {
 
     void reset(){
         thread.interrupt();
+
         for(Customer customer: customers)
             visualPane.getChildren().removeAll(customer);
+
+        serverAvailable = true;
+
+        while(!queue.isEmpty())
+            queue.poll();
+
         customers.clear();
+        servedCustomers.clear();
         time = 0;
         infoPane.setTime(0);
     }
@@ -122,10 +136,52 @@ class Controller {
     }
 
     void setValues(int simulationLength, int arrivalRate, int selectionRate, int serviceRate){
+        customerSystemTime = new int[simulationLength];
+        customerQueueTime = new int[simulationLength];
         this.simulationLength = simulationLength;
         this.arrivalRate = arrivalRate;
         this.selectionRate = selectionRate;
         this.serviceRate = serviceRate;
+        infoPane.initInfoPane(simulationLength);
+    }
+
+    private void calculateValues(){
+
+        int aRate = 0;
+        int sRate = 0;
+        int[] arriveTime5 = new int[5];
+        int[] serviceTime5 = new int[5];
+
+        for(int i = 0; i < customers.size(); i++){
+            if(i != 0) {
+                aRate += customers.get(i).getArrivalTime() - customers.get(i - 1).getArrivalTime();
+            }else {
+                aRate += customers.get(i).getArrivalTime();
+            }
+
+            if(i < arriveTime5.length) {
+                if (i != 0)
+                    arriveTime5[i] = customers.get(i).getArrivalTime() - customers.get(i - 1).getArrivalTime();
+                else
+                    arriveTime5[i] = customers.get(i).getArrivalTime();
+            }
+        }
+
+        for(int i = 0; i < servedCustomers.size(); i++){
+            sRate += servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getLeaveQueueTime();
+
+            if(i < serviceTime5.length)
+                serviceTime5[i] = servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getLeaveQueueTime();
+        }
+
+        aRate /= customers.size();
+        sRate /= servedCustomers.size();
+
+        infoPane.setArrival(aRate);
+        infoPane.setServerRate(sRate);
+        infoPane.setCustomersInSystem(customerSystemTime);
+        infoPane.setCustomersInQueue(customerQueueTime);
+        infoPane.setInnerArrivalRate(arriveTime5, serviceTime5);
     }
 
     private Thread setUpThread(){
@@ -135,7 +191,6 @@ class Controller {
             public void run() {
                 int arrival  = (int)(Math.random() * arrivalRate) + 1;
                 int finishedServiceTime = 0;
-                boolean serverAvailable = true;
 
                 System.out.println("Started");
 
@@ -163,12 +218,17 @@ class Controller {
                         serverAvailable = false;
                     }
 
+                    customerSystemTime[time-1] = customers.size() - servedCustomers.size();
+                    customerQueueTime[time-1] = queue.size();
+
                     try {
                         Thread.sleep(1000);
                     }catch (InterruptedException e){
                         time = simulationLength+1;
                     }
                 }
+
+                calculateValues();
 
                 System.out.println("Completed");
             }

@@ -7,12 +7,14 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private BorderPane pane = new BorderPane();
-    private Controller controller = new Controller(pane);
+    private Controller controller;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
+        BorderPane pane = new BorderPane();
+
+        controller = new Controller(pane);
 
         primaryStage.setTitle("459 Project");
         primaryStage.setScene(new Scene(pane, 1300, 500));
@@ -21,7 +23,7 @@ public class Main extends Application {
 
     //Terminates the Thread when the system is closed.
     @Override
-    public void stop(){
+    public void stop() {
         controller.reset();
         System.exit(0);
     }
