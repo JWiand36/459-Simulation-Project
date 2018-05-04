@@ -27,6 +27,7 @@ class SelectionPane extends VBox {
             if(isNumber(simLength.getText()) && isNumber(arriveRate.getText()) &&
                     isNumber(selectRate.getText()) && isNumber(serviceRate.getText())) {
 
+                //If all fields pass as being a number then all numbers are parsed to be passed to the controller
                 int length = Integer.parseInt(simLength.getText());
                 int arrive = Integer.parseInt(arriveRate.getText());
                 int select = Integer.parseInt(selectRate.getText());

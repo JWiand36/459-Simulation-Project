@@ -52,19 +52,19 @@ class InfoPane{
         timeTxt.setText("Time: "+time);
     }
 
-    void setArrival(int arrival){ arrivalRate.setText("Arrival Rate: "+ arrival);}
+    void setArrival(double arrival){ arrivalRate.setText(String.format("Arrival Rate: %1$.2f", arrival));}
 
-    void setServerRate(int server){ serverRate.setText("Server Rate: "+ server);}
+    void setServerRate(double server){ serverRate.setText(String.format("Server Rate: %1$.2f", server));}
 
-    public void setServerUtil(int server){ serverUtil.setText("Server Utilization: "+ server);}
+    void setServerUtil(int server){ serverUtil.setText("Server Utilization: "+ server);}
 
-    public void setCustomersInS(int customerIn){ customersInS.setText("Long-run time-average of Customers in the System: "+ customerIn);}
+    void setCustomersInS(double customerIn){ customersInS.setText(String.format("Long-run time-average of Customers in the System: %1$.2f", customerIn));}
 
-    public void setCustomersInQ(int customerIn){ customersInQ.setText("Long-run time-average of Customers in the Queue: "+ customerIn);}
+    void setCustomersInQ(double customerIn){ customersInQ.setText(String.format("Long-run time-average of Customers in the Queue: %1$.2f", customerIn));}
 
-    void setTimeAverageS(int time){ timeAverageS.setText("Average time spent in the System per Customer: "+ time);}
+    void setTimeAverageS(double time){ timeAverageS.setText(String.format("Average time spent in the System per Customer: %1$.2f", time));}
 
-    public void setTimeAverageQ(int time){ timeAverageQ.setText("Average time spent in the Queue per Customer: "+ time);}
+    void setTimeAverageQ(double time){ timeAverageQ.setText(String.format("Average time spent in the Queue per Customer: %1$.2f", time));}
 
     void initInfoPane(int timeLength){
         customersInSystem = new Text[timeLength];

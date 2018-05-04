@@ -3,7 +3,6 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -36,9 +35,13 @@ class Controller {
     private ArrayList<Customer> customers = new ArrayList<>();
     private ArrayList<Customer> servedCustomers = new ArrayList<>();
 
+    //This is just a placeholder, to allow the system to find the customer being served easily
     private Customer beingServedCustomer;
 
+    //This Queue is to help sort customers when adding to the actual queue. So the system doesn't have to search every
+    //customer that is in the system.
     private PriorityQueue<Customer> selectQueue = new PriorityQueue<>(Customer::compareTo);
+
     private PriorityQueue<Customer> queue = new PriorityQueue<>();
 
     Controller(BorderPane mainPane) {
@@ -55,6 +58,7 @@ class Controller {
     }
 
 
+    //Adds the customer to a customers list and to the queue representing a customer shopping
     private void newCustomer(){
         int enterQueue = (int)(Math.random() * selectionRate) + 1 + time;
 
@@ -73,6 +77,7 @@ class Controller {
         System.out.println("New Customer!!");
     }
 
+    //When a customer is ready to move to the queue, they are inserted into the queue, they are moved and their color changes to red
     private void enterQueue(Customer customer){
         int x;
 
@@ -86,6 +91,7 @@ class Controller {
         System.out.println("Customer added to the Queue");
     }
 
+    //When the server is available, a customer moves to the server area, taking out of the queue and their color is changed to yellow.
     private void serve(Customer customer){
 
         customer.setFill(Color.YELLOW);
@@ -103,6 +109,8 @@ class Controller {
         System.out.println("Serving Customer");
     }
 
+    //When a customer is finished being served, they are moved to the departure area and considered out of the system.
+    //Their color changes to green representing as being served.
     private void departure(Customer customer){
         int y = ((servedCustomers.size()) * 40) % 400 + 40;
         int x = (int)Math.ceil((servedCustomers.size())/10) * 40 + 720;
@@ -114,14 +122,18 @@ class Controller {
         System.out.println("Customer is leaving");
     }
 
+
+    //Resets the entire program
     void reset(){
         thread.interrupt();
 
+        //Removes all customers from the visual pane without deleting every thing but customers.
         for(Customer customer: customers)
             visualPane.getChildren().removeAll(customer);
 
         serverAvailable = true;
 
+        //Empties the queue
         while(!selectQueue.isEmpty())
             selectQueue.poll();
 
@@ -150,6 +162,7 @@ class Controller {
         button.setOnAction( e-> reset());
     }
 
+    //Allows the user to change the default values
     void setValues(int simulationLength, int arrivalRate, int selectionRate, int serviceRate){
         customerSystemTime = new int[simulationLength];
         customerQueueTime = new int[simulationLength];
@@ -162,23 +175,15 @@ class Controller {
 
     private void calculateValues(){
 
-        int aRate = 0;
-        int sRate = 0;
-        int avgSystemTime = 0;
-        int avgQueueTime = 0;
+        double avgSystemTime = 0;
+        double avgQueueTime = 0;
         int counter = 0;
-        int timeAvgSystem = 0;
-        int timeAvgQueue = 0;
         int[] arriveTime5 = new int[5];
         int[] serviceTime5 = new int[5];
 
         for(int i = 0; i < customers.size(); i++){
-            if(i != 0) {
-                aRate += customers.get(i).getArrivalTime() - customers.get(i - 1).getArrivalTime();
-            }else {
-                aRate += customers.get(i).getArrivalTime();
-            }
 
+            //This is used to find the arrival time for the first 5 customers
             if(i < arriveTime5.length) {
                 if (i != 0)
                     arriveTime5[i] = customers.get(i).getArrivalTime() - customers.get(i - 1).getArrivalTime();
@@ -186,6 +191,8 @@ class Controller {
                     arriveTime5[i] = customers.get(i).getArrivalTime();
             }
 
+            //Adds up the average time of customers that have successfully completed the queue
+            //Calculating occurs here and not in the servedCustomers cause of the customer being served.
             if(customers.get(i).getLeaveQueueTime() - customers.get(i).getEnterQueueTime() > 0) {
                 avgQueueTime += customers.get(i).getLeaveQueueTime() - customers.get(i).getEnterQueueTime();
                 counter++;
@@ -193,51 +200,46 @@ class Controller {
         }
 
         for(int i = 0; i < servedCustomers.size(); i++){
-            sRate += servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getLeaveQueueTime();
 
+            //Finds the service time of the first 5 customers.
             if(i < serviceTime5.length)
                 serviceTime5[i] = servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getLeaveQueueTime();
 
             avgSystemTime += servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getArrivalTime();
         }
 
-        for(Integer numCustomer: customerSystemTime)
-            timeAvgSystem += numCustomer;
+
+        /*
+        These are to find the long-run time-average of customers in the system. Little's Law states (N/time)*W
+        finds the long-run time average. AvgSystemTime is used to find W which is (departure time d(t) - start time s(t))/N
+        but long-run time-average is W*N/time. Therefore the N's will cancel out and L = (d(t)-s(t))/time. Wq is the same but
+        with queue values instead of the system.
+        */
+        infoPane.setCustomersInS(avgSystemTime / simulationLength);
+        infoPane.setCustomersInQ(avgQueueTime / simulationLength);
 
 
-        for(Integer numCustomer: customerQueueTime)
-            timeAvgQueue += numCustomer;
-
-        if(customers.size() != 0)
-            aRate /= customers.size();
-
+        //Finishes finding W
         if(servedCustomers.size() != 0) {
-            sRate /= servedCustomers.size();
             avgSystemTime /= servedCustomers.size();
         }
 
-        if(customerSystemTime.length != 0)
-            timeAvgSystem /= customerSystemTime.length;
-
-        if(customerQueueTime.length != 0)
-            timeAvgQueue /= customerQueueTime.length;
-
+        //Finishes finding Wq
         if(counter != 0)
             avgQueueTime /= counter;
 
-
-        infoPane.setArrival(aRate);
-        infoPane.setServerRate(sRate);
+        //Arrival rate = customers/time and service rate is customers-served/time serving
+        infoPane.setArrival((double)customers.size() / (double)time);
+        infoPane.setServerRate((double)servedCustomers.size() / (double)serverUtil);
         infoPane.setServerUtil(serverUtil);
         infoPane.setTimeAverageS(avgSystemTime);
         infoPane.setTimeAverageQ(avgQueueTime);
-        infoPane.setCustomersInS(timeAvgSystem);
-        infoPane.setCustomersInQ(timeAvgQueue);
         infoPane.setCustomersInSystem(customerSystemTime);
         infoPane.setCustomersInQueue(customerQueueTime);
         infoPane.setInnerArrivalRate(arriveTime5, serviceTime5);
     }
 
+    //Just adds some visual effects and text. Nothing special
     private void initVisual(){
 
         Rectangle serverBox = new Rectangle(580,75, 50, 50);
@@ -277,29 +279,35 @@ class Controller {
 
                     Platform.runLater(()->infoPane.setTime(time));
 
+                    //Adds a customer to the customers array and to the selecting queue, to represent a customer shopping
                     if(time == arrival) {
                         Platform.runLater(() -> newCustomer());
                         arrival = (int)(Math.random() * arrivalRate) + 1 + time;
                     }
 
+                    //If there is a customer shopping, checks to see if the customer is ready to checkout
                     if(!selectQueue.isEmpty() && time >= selectQueue.peek().getEnterQueueTime()) {
                         Platform.runLater(() -> enterQueue(selectQueue.poll()));
                     }
 
+                    //If the server has finished serving a customer, they depart from the system and the server is available
                     if(!serverAvailable && time >= finishedServiceTime) {
                         departure(beingServedCustomer);
                         serverAvailable = true;
                     }
 
+                    //If the server is available, then a customer moves to the server to be served.
                     if(serverAvailable && !queue.isEmpty()){
                         serve(queue.poll());
                         finishedServiceTime = (int)(Math.random() * serviceRate) + 1 + time;
                         serverAvailable = false;
                     }
 
+                    //Checks to see if the server is occupied
                     if(!serverAvailable)
                         serverUtil++;
 
+                    //Records how many customers are in the system and queue at a given time.
                     customerSystemTime[time-1] = customers.size() - servedCustomers.size();
                     customerQueueTime[time-1] = queue.size();
 
