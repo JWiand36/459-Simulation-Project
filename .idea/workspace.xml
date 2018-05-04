@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Added in a few calculations into the simulation. Populated the info pane to allow the viewer to see some values to compare with">
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Controller$1.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Controller$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Controller.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Controller.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Customer.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Customer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/InfoPane.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/InfoPane.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Main.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/Main.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/SelectionPane.class" afterPath="$PROJECT_DIR$/out/production/COSC 459 Project/sample/SelectionPane.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/COSC 459 Project.iml" afterPath="$PROJECT_DIR$/COSC 459 Project.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Controller.java" afterPath="$PROJECT_DIR$/src/sample/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Customer.java" afterPath="$PROJECT_DIR$/src/sample/Customer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/InfoPane.java" afterPath="$PROJECT_DIR$/src/sample/InfoPane.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/Main.java" afterPath="$PROJECT_DIR$/src/sample/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sample/SelectionPane.java" afterPath="$PROJECT_DIR$/src/sample/SelectionPane.java" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,19 +73,11 @@
       <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="187" column="26" lean-forward="false" selection-start-line="187" selection-start-column="26" selection-end-line="187" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="InfoPane.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/sample/InfoPane.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="85" column="85" lean-forward="false" selection-start-line="85" selection-start-column="85" selection-end-line="85" selection-end-column="85" />
-              <folding />
+            <state relative-caret-position="299">
+              <caret line="258" column="27" lean-forward="false" selection-start-line="258" selection-start-column="27" selection-end-line="258" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -129,10 +121,10 @@
         <option value="$PROJECT_DIR$/src/sample/SidePane.java" />
         <option value="$PROJECT_DIR$/src/sample/SetupPane.java" />
         <option value="$PROJECT_DIR$/src/sample/VisualPane.java" />
-        <option value="$PROJECT_DIR$/src/sample/SelectionPane.java" />
+        <option value="$PROJECT_DIR$/src/sample/Customer.java" />
         <option value="$PROJECT_DIR$/src/sample/Main.java" />
         <option value="$PROJECT_DIR$/src/sample/InfoPane.java" />
-        <option value="$PROJECT_DIR$/src/sample/Customer.java" />
+        <option value="$PROJECT_DIR$/src/sample/SelectionPane.java" />
         <option value="$PROJECT_DIR$/src/sample/Controller.java" />
       </list>
     </option>
@@ -162,9 +154,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,7 +177,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -353,6 +345,14 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
     </task>
+    <task id="LOCAL-00001" summary="Added in a few calculations into the simulation. Populated the info pane to allow the viewer to see some values to compare with">
+      <created>1525295870571</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1525295870571</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -360,11 +360,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32781458" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -426,7 +425,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -442,7 +443,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
           <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -450,7 +453,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -466,7 +471,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
           <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -509,46 +516,47 @@
     <entry file="file://$PROJECT_DIR$/459-Simulation-Project/src/sample/Customer.java" />
     <entry file="file://$PROJECT_DIR$/459-Simulation-Project/src/sample/Controller.java" />
     <entry file="file://$PROJECT_DIR$/459-Simulation-Project/src/sample/InfoPane.java" />
-    <entry file="file://$PROJECT_DIR$/src/sample/SelectionPane.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/InfoPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        <state relative-caret-position="294">
+          <caret line="28" column="15" lean-forward="false" selection-start-line="28" selection-start-column="15" selection-end-line="28" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="335">
+          <caret line="17" column="39" lean-forward="false" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
+        <state relative-caret-position="378">
           <caret line="18" column="8" lean-forward="false" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
-          <folding>
-            <element signature="e#617#618#0" expanded="true" />
-            <element signature="e#654#655#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sample/InfoPane.java">
+    <entry file="file://$PROJECT_DIR$/src/sample/SelectionPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="85" column="85" lean-forward="false" selection-start-line="85" selection-start-column="85" selection-end-line="85" selection-end-column="85" />
+        <state relative-caret-position="168">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sample/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="187" column="26" lean-forward="false" selection-start-line="187" selection-start-column="26" selection-end-line="187" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="299">
+          <caret line="258" column="27" lean-forward="false" selection-start-line="258" selection-start-column="27" selection-end-line="258" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

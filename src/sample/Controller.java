@@ -1,12 +1,16 @@
 package sample;
 
+
 import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.PriorityQueue;
 
 class Controller {
@@ -19,8 +23,9 @@ class Controller {
     private int time;
     private int simulationLength = 60;
     private int selectionRate = 6;
-    private int serviceRate = 10;
+    private int serviceRate = 6;
     private int arrivalRate = 5;
+    private int serverUtil = 0;
 
     private int[] customerSystemTime;
     private int[] customerQueueTime;
@@ -44,6 +49,8 @@ class Controller {
         mainPane.setLeft(new SelectionPane(this));
         mainPane.setRight(infoPane.display());
 
+        initVisual();
+
         thread = setUpThread();
     }
 
@@ -53,9 +60,10 @@ class Controller {
 
         Customer customer = new Customer(time, enterQueue);
 
-        int y = ((customers.size()) * 40) % 400 + 20;
-        int x = (int)Math.ceil((customers.size())/10) * 40 + 20;
+        int y = ((customers.size()) * 40) % 400 + 45;
+        int x = (int)Math.ceil((customers.size())/10) * 40 + 25;
 
+        customer.setFill(Color.BLUEVIOLET);
         customer.move(x,y);
 
         customers.add(customer);
@@ -68,8 +76,9 @@ class Controller {
     private void enterQueue(Customer customer){
         int x;
 
-        x = 500 - queue.size() * 40;
+        x = 495 - queue.size() * 40;
 
+        customer.setFill(Color.RED);
         customer.move(x,100);
         customer.inQueue(true);
 
@@ -79,7 +88,8 @@ class Controller {
 
     private void serve(Customer customer){
 
-        customer.move(600,100);
+        customer.setFill(Color.YELLOW);
+        customer.move(605,100);
         customer.inQueue(false);
 
         for(Customer custom: customers){
@@ -94,9 +104,10 @@ class Controller {
     }
 
     private void departure(Customer customer){
-        int y = ((servedCustomers.size()) * 40) % 400 + 20;
+        int y = ((servedCustomers.size()) * 40) % 400 + 40;
         int x = (int)Math.ceil((servedCustomers.size())/10) * 40 + 720;
 
+        customer.setFill(Color.GREEN);
         customer.move(x,y);
         customer.setDepartureTime(time);
         servedCustomers.add(customer);
@@ -111,12 +122,16 @@ class Controller {
 
         serverAvailable = true;
 
+        while(!selectQueue.isEmpty())
+            selectQueue.poll();
+
         while(!queue.isEmpty())
             queue.poll();
 
         customers.clear();
         servedCustomers.clear();
         time = 0;
+        serverUtil = 0;
         infoPane.setTime(0);
     }
 
@@ -149,6 +164,11 @@ class Controller {
 
         int aRate = 0;
         int sRate = 0;
+        int avgSystemTime = 0;
+        int avgQueueTime = 0;
+        int counter = 0;
+        int timeAvgSystem = 0;
+        int timeAvgQueue = 0;
         int[] arriveTime5 = new int[5];
         int[] serviceTime5 = new int[5];
 
@@ -165,6 +185,11 @@ class Controller {
                 else
                     arriveTime5[i] = customers.get(i).getArrivalTime();
             }
+
+            if(customers.get(i).getLeaveQueueTime() - customers.get(i).getEnterQueueTime() > 0) {
+                avgQueueTime += customers.get(i).getLeaveQueueTime() - customers.get(i).getEnterQueueTime();
+                counter++;
+            }
         }
 
         for(int i = 0; i < servedCustomers.size(); i++){
@@ -172,16 +197,70 @@ class Controller {
 
             if(i < serviceTime5.length)
                 serviceTime5[i] = servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getLeaveQueueTime();
+
+            avgSystemTime += servedCustomers.get(i).getDepartureTime() - servedCustomers.get(i).getArrivalTime();
         }
 
-        aRate /= customers.size();
-        sRate /= servedCustomers.size();
+        for(Integer numCustomer: customerSystemTime)
+            timeAvgSystem += numCustomer;
+
+
+        for(Integer numCustomer: customerQueueTime)
+            timeAvgQueue += numCustomer;
+
+        if(customers.size() != 0)
+            aRate /= customers.size();
+
+        if(servedCustomers.size() != 0) {
+            sRate /= servedCustomers.size();
+            avgSystemTime /= servedCustomers.size();
+        }
+
+        if(customerSystemTime.length != 0)
+            timeAvgSystem /= customerSystemTime.length;
+
+        if(customerQueueTime.length != 0)
+            timeAvgQueue /= customerQueueTime.length;
+
+        if(counter != 0)
+            avgQueueTime /= counter;
+
 
         infoPane.setArrival(aRate);
         infoPane.setServerRate(sRate);
+        infoPane.setServerUtil(serverUtil);
+        infoPane.setTimeAverageS(avgSystemTime);
+        infoPane.setTimeAverageQ(avgQueueTime);
+        infoPane.setCustomersInS(timeAvgSystem);
+        infoPane.setCustomersInQ(timeAvgQueue);
         infoPane.setCustomersInSystem(customerSystemTime);
         infoPane.setCustomersInQueue(customerQueueTime);
         infoPane.setInnerArrivalRate(arriveTime5, serviceTime5);
+    }
+
+    private void initVisual(){
+
+        Rectangle serverBox = new Rectangle(580,75, 50, 50);
+        serverBox.setFill(Color.BLACK);
+
+        Text serverLbl = new Text("Server");
+        serverLbl.setX(585);
+        serverLbl.setY(55);
+
+        Text queueLbl = new Text("Queue");
+        queueLbl.setX(400);
+        queueLbl.setY(55);
+
+        Text selectingLbl = new Text("Selecting Goods");
+        selectingLbl.setX(15);
+        selectingLbl.setY(15);
+
+        Text departedLbl = new Text("Departed");
+        departedLbl.setX(715);
+        departedLbl.setY(15);
+
+        visualPane.getChildren().addAll(serverBox, serverLbl, queueLbl, selectingLbl, departedLbl);
+
     }
 
     private Thread setUpThread(){
@@ -207,7 +286,7 @@ class Controller {
                         Platform.runLater(() -> enterQueue(selectQueue.poll()));
                     }
 
-                    if(!serverAvailable && time >= finishedServiceTime){
+                    if(!serverAvailable && time >= finishedServiceTime) {
                         departure(beingServedCustomer);
                         serverAvailable = true;
                     }
@@ -217,6 +296,9 @@ class Controller {
                         finishedServiceTime = (int)(Math.random() * serviceRate) + 1 + time;
                         serverAvailable = false;
                     }
+
+                    if(!serverAvailable)
+                        serverUtil++;
 
                     customerSystemTime[time-1] = customers.size() - servedCustomers.size();
                     customerQueueTime[time-1] = queue.size();

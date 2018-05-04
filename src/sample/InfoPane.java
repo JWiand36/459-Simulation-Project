@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 class InfoPane{
 
     private ScrollPane scroll = new ScrollPane();
-    private VBox pane = new VBox();
+    private VBox pane = new VBox(5);
 
     private Text timeTxt = new Text("Time: ");
     private Text arrivalRate = new Text("Arrival Rate: ");
@@ -28,6 +29,7 @@ class InfoPane{
     InfoPane(){
 
         pane.getChildren().addAll(timeTxt, arrivalRate, serverRate, serverUtil);
+        pane.setPadding(new Insets(5));
 
         for(int i = 1; i <= interarrivalRate.length; i++){
 
@@ -38,6 +40,7 @@ class InfoPane{
 
         pane.getChildren().addAll(customersInS, customersInQ, timeAverageS, timeAverageQ);
 
+        scroll.setMinWidth(400);
         scroll.setContent(pane);
     }
 
@@ -59,7 +62,7 @@ class InfoPane{
 
     public void setCustomersInQ(int customerIn){ customersInQ.setText("Long-run time-average of Customers in the Queue: "+ customerIn);}
 
-    public void setTimeAverageS(int time){ timeAverageS.setText("Average time spent in the System per Customer: "+ time);}
+    void setTimeAverageS(int time){ timeAverageS.setText("Average time spent in the System per Customer: "+ time);}
 
     public void setTimeAverageQ(int time){ timeAverageQ.setText("Average time spent in the Queue per Customer: "+ time);}
 

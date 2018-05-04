@@ -12,7 +12,7 @@ class SelectionPane extends VBox {
     private TextField simLength = new TextField("60");
     private TextField arriveRate = new TextField("5");
     private TextField selectRate = new TextField("6");
-    private TextField serviceRate = new TextField("10");
+    private TextField serviceRate = new TextField("6");
 
     SelectionPane(Controller controller){
 
@@ -21,6 +21,7 @@ class SelectionPane extends VBox {
         Label selectRateLbl = new Label("Selection Rate");
         Label serviceRateLbl = new Label("Service Rate");
 
+        this.setSpacing(5);
 
         run.setOnAction(e-> {
             if(isNumber(simLength.getText()) && isNumber(arriveRate.getText()) &&

@@ -1,9 +1,11 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 
 public class Main extends Application {
 
@@ -13,11 +15,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         BorderPane pane = new BorderPane();
+        pane.setPadding(new Insets(5));
 
         controller = new Controller(pane);
 
         primaryStage.setTitle("459 Project");
-        primaryStage.setScene(new Scene(pane, 1300, 500));
+        primaryStage.setScene(new Scene(pane, 1500, 500));
         primaryStage.show();
     }
 
