@@ -5,8 +5,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-
 class InfoPane{
 
     private ScrollPane scroll = new ScrollPane();

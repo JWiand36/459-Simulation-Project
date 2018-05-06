@@ -210,7 +210,7 @@ class Controller {
 
 
         /*
-        These are to find the long-run time-average of customers in the system. Little's Law states (N/time)*W
+        These are to find the long-run time-average of customers in the system.  (N/time)*W
         finds the long-run time average. AvgSystemTime is used to find W which is (departure time d(t) - start time s(t))/N
         but long-run time-average is W*N/time. Therefore the N's will cancel out and L = (d(t)-s(t))/time. Wq is the same but
         with queue values instead of the system.
@@ -232,8 +232,8 @@ class Controller {
         infoPane.setArrival((double)customers.size() / (double)time);
         infoPane.setServerRate((double)servedCustomers.size() / (double)serverUtil);
         infoPane.setServerUtil(serverUtil);
-        infoPane.setTimeAverageS(avgSystemTime);
-        infoPane.setTimeAverageQ(avgQueueTime);
+        infoPane.setTimeAverageS(avgSystemTime*((double)customers.size() / (double)time)); //Little's Law L = arrival rate * W
+        infoPane.setTimeAverageQ(avgQueueTime*((double)customers.size() / (double)time)); //Little's Law L = arrival rate * Wq
         infoPane.setCustomersInSystem(customerSystemTime);
         infoPane.setCustomersInQueue(customerQueueTime);
         infoPane.setInnerArrivalRate(arriveTime5, serviceTime5);

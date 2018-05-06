@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="COSC 459 Project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/COSC_459_Project_jar</output-path>
+    <root id="archive" name="COSC 459 Project.jar">
+      <element id="module-output" name="COSC 459 Project" />
+    </root>
+  </artifact>
+</component>
