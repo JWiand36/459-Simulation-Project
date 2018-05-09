@@ -14,8 +14,8 @@ class InfoPane{
     private Text arrivalRate = new Text("Arrival Rate: ");
     private Text serverRate = new Text("Server Rate: ");
     private Text serverUtil = new Text("Server Utilization: ");
-    private Text customersInS = new Text("Long-run time-average of Customers in the System: ");
-    private Text customersInQ = new Text("Long-run time-average of Customers in the Queue: ");
+    private Text customersInS = new Text("Long-run time-average # of Customers in the System: ");
+    private Text customersInQ = new Text("Long-run time-average # of Customers in the Queue: ");
     private Text timeAverageQ = new Text("Average time spent in the Queue per Customer: ");
     private Text timeAverageS = new Text("Average time spent in the System per Customer: ");
 
@@ -54,11 +54,11 @@ class InfoPane{
 
     void setServerRate(double server){ serverRate.setText(String.format("Server Rate: %1$.2f", server));}
 
-    void setServerUtil(int server){ serverUtil.setText("Server Utilization: "+ server);}
+    void setServerUtil(double server){ serverUtil.setText(String.format("Server Utilization: %1$.2f", server));}
 
-    void setCustomersInS(double customerIn){ customersInS.setText(String.format("Long-run time-average of Customers in the System: %1$.2f", customerIn));}
+    void setCustomersInS(double customerIn){ customersInS.setText(String.format("Long-run time-average # of Customers in the System: %1$.2f", customerIn));}
 
-    void setCustomersInQ(double customerIn){ customersInQ.setText(String.format("Long-run time-average of Customers in the Queue: %1$.2f", customerIn));}
+    void setCustomersInQ(double customerIn){ customersInQ.setText(String.format("Long-run time-average # of Customers in the Queue: %1$.2f", customerIn));}
 
     void setTimeAverageS(double time){ timeAverageS.setText(String.format("Average time spent in the System per Customer: %1$.2f", time));}
 

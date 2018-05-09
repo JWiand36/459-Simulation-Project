@@ -24,6 +24,7 @@ class SelectionPane extends VBox {
         this.setSpacing(5);
 
         run.setOnAction(e-> {
+
             if(isNumber(simLength.getText()) && isNumber(arriveRate.getText()) &&
                     isNumber(selectRate.getText()) && isNumber(serviceRate.getText())) {
 
@@ -36,7 +37,7 @@ class SelectionPane extends VBox {
                 controller.setValues(length, arrive, select, service);
             }
 
-            controller.run(run);
+            controller.run();
         });
 
         reset.setOnAction(e-> controller.reset(reset));

@@ -147,15 +147,10 @@ class Controller {
         infoPane.setTime(0);
     }
 
-    void run(Button button){
-
-        button.setOnAction( e->{
-
+    void run(){
             reset();
             thread = setUpThread();
             thread.start();
-
-        });
     }
 
     void reset(Button button){
@@ -215,8 +210,6 @@ class Controller {
         but long-run time-average is W*N/time. Therefore the N's will cancel out and L = (d(t)-s(t))/time. Wq is the same but
         with queue values instead of the system.
         */
-        infoPane.setCustomersInS(avgSystemTime / simulationLength);
-        infoPane.setCustomersInQ(avgQueueTime / simulationLength);
 
 
         //Finishes finding W
@@ -231,9 +224,11 @@ class Controller {
         //Arrival rate = customers/time and service rate is customers-served/time serving
         infoPane.setArrival((double)customers.size() / (double)time);
         infoPane.setServerRate((double)servedCustomers.size() / (double)serverUtil);
-        infoPane.setServerUtil(serverUtil);
-        infoPane.setTimeAverageS(avgSystemTime*((double)customers.size() / (double)time)); //Little's Law L = arrival rate * W
-        infoPane.setTimeAverageQ(avgQueueTime*((double)customers.size() / (double)time)); //Little's Law L = arrival rate * Wq
+        infoPane.setServerUtil((double)serverUtil / (double)simulationLength);
+        infoPane.setTimeAverageS(avgSystemTime);
+        infoPane.setTimeAverageQ(avgQueueTime);
+        infoPane.setCustomersInS(avgSystemTime *((double)customers.size() / (double)time) ); //Little's Law L = arrival rate * W
+        infoPane.setCustomersInQ(avgQueueTime *((double)customers.size() / (double)time)); //Little's Law L = arrival rate * Wq
         infoPane.setCustomersInSystem(customerSystemTime);
         infoPane.setCustomersInQueue(customerQueueTime);
         infoPane.setInnerArrivalRate(arriveTime5, serviceTime5);
